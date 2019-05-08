@@ -1,0 +1,37 @@
+﻿@{
+    ViewBag.Title = "Настройки";   
+}
+@using CamersOperzalAdmin.Models
+@using System.Data.Entity.Infrastructure
+@model IEnumerable<Configuration>
+
+<div style="margin-left:50px;">   
+    <div class="row">
+        @using (Html.BeginForm("Setting", "Home", "post", FormMethod.Post, new { @class = "form-horizontal" }))
+        {
+            @Html.ValidationSummary("Необходимо исправить ошибки: ", new { @class = "alert alert-danger" })
+
+            int i = 0;
+            foreach (Configuration configuration in Model)
+            {
+                <div class="form-group">
+                    @Html.Hidden(string.Format("[{0}].{1}", i, "Id"), configuration.Id)
+                    @Html.Hidden(string.Format("[{0}].{1}", i, "Description"), configuration.Description)
+                    @Html.Label("", configuration.Description, new { @class = "col-sm-2 colntrol-label" })
+                    <div class="col-sm-5">
+                        @Html.TextBox(string.Format("[{0}].{1}", i, "Value"), configuration.Value, new { @class = "form-control", id = "config_" + configuration.Id })
+                        @Html.ValidationMessageFor(model => configuration.Value)
+                    </div>                  
+                </div>
+                i++;
+            }
+            <hr />
+            <input type="submit" class="btn btn-primary" value="Сохранить" />
+        }
+    </div>
+
+    @if (ViewBag.SaveState != null)
+    {
+        <div class="row alert @if (ViewBag.SaveState == "OK") { <text>alert-success </text> } else { <text>alert-danger</text> }col-sm-7" style="margin-top:50px;">@Html.Raw(ViewBag.StateText)</div>
+    }
+</div>

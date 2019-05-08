@@ -1,0 +1,43 @@
+﻿@model IEnumerable<CamersOperzalAdmin.Models.Ifns>
+
+@{
+    ViewBag.Title = "Управление инспекциями";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<p>
+    @Html.ActionLink("Добавить инспекцию", "Create", null, new { @class = "btn btn-primary" })
+</p>
+<table class="table table-bordered table-striped table-hover">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.IfnsCode)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.IfnsName)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Order)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.IfnsCode)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.IfnsName)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Order)
+        </td>
+        <td>
+            @Html.ActionLink("Изменить", "Edit", new { id = item.IfnsCode }, new { @class = "btn btn-success" }) |           
+            @Html.ActionLink("Удалить", "Delete", new { id = item.IfnsCode }, new { @class = "btn btn-danger" })
+        </td>
+    </tr>
+}
+
+</table>

@@ -1,0 +1,5 @@
+Установка:
+DownloadFiles.General.exe /install
+
+Удаление:
+DownloadFiles.General.exe /uninstall

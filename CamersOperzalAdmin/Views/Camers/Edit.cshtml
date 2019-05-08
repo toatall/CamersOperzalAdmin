@@ -1,0 +1,73 @@
+﻿@model CamersOperzalAdmin.Models.General
+
+@{
+    ViewBag.Title = "Изменить камеру";
+    Layout = null;
+}
+
+<h2>Измненение камеры #@Model.Id</h2>
+
+@using (Html.BeginForm("Edit", "Camers", new { Id = Model.Id }, FormMethod.Post, new { id = "form-edit" }))
+{
+    @Html.AntiForgeryToken()
+    
+    <div class="form-horizontal">
+                
+        @Html.ValidationSummary(true)
+        @Html.HiddenFor(model => model.Id)
+        @Html.HiddenFor(model => model.IfnsCode)
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.CameraImgLink, new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.TextBoxFor(model => model.CameraImgLink, new { @class = "form-control" })                
+                @Html.ValidationMessageFor(model => model.CameraImgLink)
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.CameraImgFile, new { @class = "control-label col-md-2" })
+            <div class="col-md-10">                
+                @Html.TextBoxFor(model => model.CameraImgFile, new { @class = "form-control" })               
+                @Html.ValidationMessageFor(model => model.CameraImgFile)
+            </div>
+        </div>        
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.CameraAuthUser, new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.TextBoxFor(model => model.CameraAuthUser, new { @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.CameraAuthUser)
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.CameraAuthPassword, new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.TextBoxFor(model => model.CameraAuthPassword, new { @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.CameraAuthPassword)
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" value="Сохранить" class="btn btn-default" />
+            </div>
+        </div>
+    </div>
+}
+<hr />
+<div>
+    @Html.ActionLink("Назад", "Camera", "Home", new { @class = "btn btn-primary", id = "btn-back" })
+    <script type="text/javascript">
+        $('#btn-back').click(function () {
+            $('#drowDownListIfns').trigger("change");
+            return false;
+        });
+        $('#form-edit').submit(function () {
+            loadAjax($(this).attr('action'), '#content-camera', 'post', $(this).serialize());
+            return false;
+        });
+    </script>
+</div>
+

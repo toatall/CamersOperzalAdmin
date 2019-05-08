@@ -1,0 +1,57 @@
+﻿@model IEnumerable<CamersOperzalAdmin.Models.Ifns>
+
+@{    
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+<div class="form-inline col-sm-7">
+    @Html.DropDownList("Ifns", (IEnumerable<SelectListItem>)ViewData["Ifns"], "- Выберите Инспекцию -", new { @class = "form-control", id = "drowDownListIfns" })
+</div>
+
+
+<div class="well-lg" style="margin-top:30px;">
+    <hr />
+    <div id="content-camera"></div>
+</div>
+
+<script type="text/javascript">
+
+    function loadAjax(url, container, method, data)
+    {
+        $.ajax({
+            url: url,
+            method: method,
+            data: data
+        })
+        .done(function (data) {
+            $(container).html(data);
+        })
+        .error(function (jqXHR, textStatus, errorThrow) {
+            $(container).html('<div class="alert alert-danger">' + jqXHR.status + ' ' + jqXHR.statusText + '<br />' + jqXHR.responseText + '<div>');
+        });
+    }
+
+    $('#drowDownListIfns').change(function () {
+
+        if ($(this).val() == "")
+        {
+            $('#content-camera').html("");
+            return false;
+        }
+
+        $('#content-camera').html('<img src="/Content/loading.gif" />');
+
+        var url = '@ViewBag.Url';
+        url = url.replace('_ifns_', $(this).val());
+
+        loadAjax(url, '#content-camera');
+     
+    });
+
+    function loadPage(url)
+    {
+        loadAjax(url, '#content-camera');
+    }
+
+</script>

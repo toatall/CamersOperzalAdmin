@@ -1,0 +1,50 @@
+﻿@model IEnumerable<CamersOperzalAdmin.Models.General>
+
+@{
+    ViewBag.Title = "Index";
+    Layout = null;
+}
+
+<h2>Список камер</h2>
+
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.Id)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.CameraImgLink)
+        </th>       
+        <th>
+            @Html.DisplayNameFor(model => model.CameraDisable)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.CameraDisableDescription)
+        </th>      
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    string cssStatus = (item.CameraDisable == false) ? "success" : "danger";
+    <tr class="@cssStatus">
+        <td>
+            @Html.DisplayFor(modelItem => item.Id)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.CameraImgLink)
+        </td>       
+        <td>
+            @Html.DisplayFor(modelItem => item.CameraDisableText)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.CameraDisableDescription)
+        </td>        
+        <td>
+            <a href="@Url.Action("Edit", "CamersDisable", new { Id = item.Id })" class="btn btn-primary" title="Изменить" onclick="loadPage($(this).attr('href')); return false;">
+                <i class="fa fa-edit"></i>
+            </a>
+        </td>
+    </tr>
+}
+
+</table>

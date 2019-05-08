@@ -1,0 +1,67 @@
+﻿@model CamersOperzalAdmin.Models.General
+
+@{
+    ViewBag.Title = "Удаление камеры";
+    Layout = null;
+}
+
+<h2>Удаление камеры #@Model.Id</h2>
+
+<h3>Вы уверены, что хотите удалить данную камеру?</h3>
+<div>    
+    <dl class="dl-horizontal">        
+
+        <dt>
+            @Html.DisplayNameFor(model => model.CameraImgLink)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.CameraImgLink)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.CameraImgFile)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.CameraImgFile)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.CameraAuthUser)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.CameraAuthUser)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.CameraAuthPassword)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.CameraAuthPassword)
+        </dd>
+
+    </dl>
+
+    @using (Html.BeginForm("Delete", "Camers", new { Id = Model.Id }, FormMethod.Post, new { id = "form-delete" }))
+    {
+        @Html.AntiForgeryToken()
+
+        <div class="form-actions no-color">
+            <input type="submit" value="Удалить" class="btn btn-danger" /> |
+                @Html.ActionLink("Назад", "Camera", "Home", new { @class = "btn btn-primary", id = "btn-back" })
+                <script type="text/javascript">
+                    $('#btn-back').click(function () {
+                        $('#drowDownListIfns').trigger("change");
+                        return false;
+                    });
+                    $('#form-delete').submit(function () {
+                        loadAjax($(this).attr('action'), '#content-camera', 'post', $(this).serialize());
+                        return false;
+                    });
+                </script>
+        </div>
+    }
+</div>

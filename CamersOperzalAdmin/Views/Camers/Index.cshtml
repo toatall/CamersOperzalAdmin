@@ -1,0 +1,66 @@
+﻿@model IEnumerable<CamersOperzalAdmin.Models.General>
+
+@{
+    ViewBag.Title = "Index";
+    Layout = null;
+}
+
+
+<p>
+    @Html.ActionLink("Добавить камеру", "Create", "Camers", new { CodeIfns = ViewBag.CodeIfns }, new { onclick = "loadPage($(this).attr('href')); return false;", @class = "btn btn-primary" })
+</p>
+<table class="table">
+    <tr>       
+        <th>
+            @Html.DisplayNameFor(model => model.CameraImgLink)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.CameraImgFile)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.CameraDisable)
+        </th>       
+        <th>
+            @Html.DisplayNameFor(model => model.CameraAuthUser)
+        </th>
+        <th style="width: 50px;">
+            @Html.DisplayNameFor(model => model.CameraAuthPassword)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model)
+{
+    string CssDisable = "";
+    if (item.CameraDisable)
+    {
+        CssDisable = " class=\"danger\"";
+    }
+    <tr @CssDisable>        
+        <td>
+            @Html.DisplayFor(modelItem => item.CameraImgLink)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.CameraImgFile)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.CameraDisableText)
+        </td>        
+        <td>
+            @Html.DisplayFor(modelItem => item.CameraAuthUser)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.CameraAuthPassword)
+        </td>
+        <td>
+            <a href="@Url.Action("Edit", "Camers", new { Id = item.Id })" class="btn btn-primary" title="Изменить" onclick="loadPage($(this).attr('href')); return false;">
+                <i class="fa fa-edit"></i></a>
+
+            <a href="@Url.Action("Delete", "Camers", new { Id = item.Id })" class="btn btn-danger" title="Удалить" onclick="loadPage($(this).attr('href')); return false;">
+                <i class="fa fa-trash"></i>
+            </a>
+        </td>
+    </tr>
+}
+
+</table>

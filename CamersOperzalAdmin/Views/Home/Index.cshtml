@@ -1,0 +1,50 @@
+﻿@{
+    ViewBag.Title = "Состояние";
+}
+@using CamersOperzalAdmin.Models
+@using System.Data.Entity.Infrastructure
+@model DbQuery<General>
+
+
+<script type="text/javascript">
+    function CheckStatusCamera(id, container)
+    {
+        $(container).html('<img src="/Content/loading.gif" />');
+
+        $.get('@Url.Action("StatusCamera")', { id: id })
+            .done(function(data) {
+                $(container).html(data);
+            })
+            .error(function (jqXHR, textStatus, throwError) {
+                $(container).html('<div class="alert-error">' + textStatus + ' ' + jqXHR.statusText + '</div>');
+            });
+    }
+</script>
+
+<table class="table table-bordered table-hover table-striped">
+    <tr>
+        <th>#</th>
+        <th>Инспекция</th>
+        <th>Камера</th>
+        <th style="width: 200px;">Статус</th>
+        <th>&nbsp;</th>
+    </tr>
+    @{ int rowIndex = 1; }    
+    @foreach (General general in Model)
+    {
+        <tr>
+            <td>@rowIndex.ToString()</td>
+            <td>@general.IfnsCode</td>
+            <td>@general.CameraImgLink</td>
+            <td id="camera_@general.Id" data-id="@general.Id"></td>
+            <td><button class="btn btn-primary" onclick="CheckStatusCamera(@general.Id,'#camera_@general.Id')" title="Обновить"><i class="fa fa-refresh"></i></button></td>
+        </tr>
+        rowIndex++;
+    }
+</table>
+
+<script type="text/javascript">
+    $("td[id^='camera']").each(function () {
+        CheckStatusCamera($(this).attr('data-id'), '#' + $(this).attr('id'));
+    });
+</script>

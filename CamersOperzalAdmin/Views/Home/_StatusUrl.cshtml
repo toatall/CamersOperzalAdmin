@@ -1,0 +1,18 @@
+﻿@{ Layout = null; }
+
+@if (ViewBag.Status)
+{    
+    <div class="panel panel-green">
+        <div class="panel-heading">
+            OK
+        </div>       
+    </div>   
+}
+else
+{
+    <div class="panel panel-danger">
+        <div class="panel-heading">
+            Камера недоступна
+        </div>        
+    </div>  
+}

@@ -1,0 +1,36 @@
+﻿@model CamersOperzalAdmin.Models.Ifns
+
+@{
+    ViewBag.Title = "Удалить инспекцию " + Model.IfnsCode;
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h3>Вы уверены, что хотите удалить инспекцию?</h3>
+<div>    
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.IfnsCode)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.IfnsCode)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.IfnsName)
+        </dt> 
+        <dd>
+            @Html.DisplayFor(model => model.IfnsName)
+        </dd>       
+    </dl>
+    <hr />
+
+    @using (Html.BeginForm()) {
+        @Html.AntiForgeryToken()
+
+        <div class="form-actions no-color">
+            <input type="submit" value="Удалить" class="btn btn-danger" /> |
+            @Html.ActionLink("Назад", "Index", "Ifns", new { @class = "btn btn-primary" })
+        </div>
+    }
+</div>

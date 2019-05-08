@@ -1,0 +1,176 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="Хранилище CamersOperzal" Provider="System.Data.SqlClient" ProviderManifestToken="2008" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="camers_operzal_configuration">
+          <Key>
+            <PropertyRef Name="config_id" />
+          </Key>
+          <Property Name="config_id" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="config_value" Type="varchar" MaxLength="500" Nullable="false" />
+          <Property Name="config_description" Type="varchar(max)" />
+        </EntityType>
+        <EntityType Name="camers_operzal_general">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ifns_code" Type="varchar" MaxLength="4" Nullable="false" />
+          <Property Name="camera_img_link" Type="varchar" MaxLength="1000" Nullable="false" />
+          <Property Name="camera_img_file" Type="varchar" MaxLength="1000" Nullable="false" />
+          <Property Name="camera_disable" Type="int" />
+          <Property Name="camera_disable_description" Type="text" />
+          <Property Name="camera_user" Type="varchar" MaxLength="50" />
+          <Property Name="camera_password" Type="varchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="camers_operzal_ifns">
+          <Key>
+            <PropertyRef Name="ifns_cod" />
+          </Key>
+          <Property Name="ifns_cod" Type="varchar" MaxLength="4" Nullable="false" />
+          <Property Name="ifns_name" Type="varchar" MaxLength="250" Nullable="false" />
+          <Property Name="order" Type="int" />
+        </EntityType>
+        <Association Name="FK_camers_operzal_general_camers_operzal_ifns">
+          <End Role="camers_operzal_ifns" Type="Self.camers_operzal_ifns" Multiplicity="1" />
+          <End Role="camers_operzal_general" Type="Self.camers_operzal_general" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="camers_operzal_ifns">
+              <PropertyRef Name="ifns_cod" />
+            </Principal>
+            <Dependent Role="camers_operzal_general">
+              <PropertyRef Name="ifns_code" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="Хранилище CamersOperzalContainer">
+          <EntitySet Name="camers_operzal_configuration" EntityType="Self.camers_operzal_configuration" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="camers_operzal_general" EntityType="Self.camers_operzal_general" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="camers_operzal_ifns" EntityType="Self.camers_operzal_ifns" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_camers_operzal_general_camers_operzal_ifns" Association="Self.FK_camers_operzal_general_camers_operzal_ifns">
+            <End Role="camers_operzal_ifns" EntitySet="camers_operzal_ifns" />
+            <End Role="camers_operzal_general" EntitySet="camers_operzal_general" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="CamersOperzal" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="camers_operzal_configuration">
+          <Key>
+            <PropertyRef Name="config_id" />
+          </Key>
+          <Property Name="config_id" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="config_value" Type="String" MaxLength="500" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="config_description" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <EntityType Name="camers_operzal_general">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ifns_code" Type="String" MaxLength="4" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="camera_img_link" Type="String" MaxLength="1000" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="camera_img_file" Type="String" MaxLength="1000" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="camera_disable" Type="Int32" />
+          <Property Name="camera_disable_description" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="camera_user" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="camera_password" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="camers_operzal_ifns" Relationship="Self.FK_camers_operzal_general_camers_operzal_ifns" FromRole="camers_operzal_general" ToRole="camers_operzal_ifns" />
+        </EntityType>
+        <EntityType Name="camers_operzal_ifns">
+          <Key>
+            <PropertyRef Name="ifns_cod" />
+          </Key>
+          <Property Name="ifns_cod" Type="String" MaxLength="4" FixedLength="false" Unicode="false" Nullable="false" annotation:StoreGeneratedPattern="None" >
+          </Property>
+          <Property Name="ifns_name" Type="String" MaxLength="250" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="order" Type="Int32" />
+          <NavigationProperty Name="camers_operzal_general" Relationship="Self.FK_camers_operzal_general_camers_operzal_ifns" FromRole="camers_operzal_ifns" ToRole="camers_operzal_general" />
+        </EntityType>
+        <Association Name="FK_camers_operzal_general_camers_operzal_ifns">
+          <End Role="camers_operzal_ifns" Type="Self.camers_operzal_ifns" Multiplicity="1" />
+          <End Role="camers_operzal_general" Type="Self.camers_operzal_general" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="camers_operzal_ifns">
+              <PropertyRef Name="ifns_cod" />
+            </Principal>
+            <Dependent Role="camers_operzal_general">
+              <PropertyRef Name="ifns_code" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="Entities" annotation:LazyLoadingEnabled="true" a:TypeAccess="Public" xmlns:a="http://schemas.microsoft.com/ado/2006/04/codegeneration">
+          <EntitySet Name="camers_operzal_configuration" EntityType="Self.camers_operzal_configuration" />
+          <EntitySet Name="camers_operzal_general" EntityType="Self.camers_operzal_general" />
+          <EntitySet Name="camers_operzal_ifns" EntityType="Self.camers_operzal_ifns" />
+          <AssociationSet Name="FK_camers_operzal_general_camers_operzal_ifns" Association="Self.FK_camers_operzal_general_camers_operzal_ifns">
+            <End Role="camers_operzal_ifns" EntitySet="camers_operzal_ifns" />
+            <End Role="camers_operzal_general" EntitySet="camers_operzal_general" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="Хранилище CamersOperzalContainer" CdmEntityContainer="Entities">
+          <EntitySetMapping Name="camers_operzal_configuration">
+            <EntityTypeMapping TypeName="CamersOperzal.camers_operzal_configuration">
+              <MappingFragment StoreEntitySet="camers_operzal_configuration">
+                <ScalarProperty Name="config_id" ColumnName="config_id" />
+                <ScalarProperty Name="config_value" ColumnName="config_value" />
+                <ScalarProperty Name="config_description" ColumnName="config_description" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="camers_operzal_general">
+            <EntityTypeMapping TypeName="CamersOperzal.camers_operzal_general">
+              <MappingFragment StoreEntitySet="camers_operzal_general">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="ifns_code" ColumnName="ifns_code" />
+                <ScalarProperty Name="camera_img_link" ColumnName="camera_img_link" />
+                <ScalarProperty Name="camera_img_file" ColumnName="camera_img_file" />
+                <ScalarProperty Name="camera_disable" ColumnName="camera_disable" />
+                <ScalarProperty Name="camera_disable_description" ColumnName="camera_disable_description" />
+                <ScalarProperty Name="camera_user" ColumnName="camera_user" />
+                <ScalarProperty Name="camera_password" ColumnName="camera_password" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="camers_operzal_ifns">
+            <EntityTypeMapping TypeName="CamersOperzal.camers_operzal_ifns">
+              <MappingFragment StoreEntitySet="camers_operzal_ifns">
+                <ScalarProperty Name="ifns_cod" ColumnName="ifns_cod" />
+                <ScalarProperty Name="ifns_name" ColumnName="ifns_name" />
+                <ScalarProperty Name="order" ColumnName="order" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="false" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="Нет" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>
